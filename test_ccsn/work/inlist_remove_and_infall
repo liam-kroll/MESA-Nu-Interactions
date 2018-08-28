@@ -1,0 +1,116 @@
+  ! inlist for removing the iron core of collapsing star and letting bottom
+  ! cell infall to neutrino sphere radius
+
+&star_job
+
+    load_saved_model = .true.
+    saved_model_name = '13M_vvc_0.0_wnd_1.0_ovr_010_mlt_3.0_z6m3.mod'  
+
+    save_model_when_terminate = .true.
+    save_model_filename = 'finished_infall.mod'
+
+    remove_initial_center_by_entropy = 4.0
+    fallback_set_zero_v_center = .false. ! continue infalling
+
+    change_initial_u_flag = .true.
+    change_initial_v_flag = .true.
+    new_v_flag = .false.
+    new_u_flag = .true.
+
+    change_net = .false.
+    show_net_reactions_info = .true.
+
+    set_initial_age = .true.
+    initial_age = 0 ! in years
+
+    set_initial_model_number = .true.
+    initial_model_number = 0
+    
+    set_initial_dt = .true.
+    seconds_for_initial_dt = 1d-4
+
+    pgstar_flag = .true.
+
+/ ! end of star_job namelist
+
+&controls
+
+    use_other_net_get = .false.
+
+    center_R_lower_limit = 2d7 ! 200 km
+    when_to_stop_atol = 1d4
+    when_to_stop_rtol = 1d-4
+    
+    eps_nuc_factor = 0d0
+    dxdt_nuc_factor = 0d0
+
+    fe_core_infall_limit = 1d99 ! cm/sec
+    calculate_Brunt_N2 = .false.
+    use_Type2_opacities = .false.
+
+! equation controls
+    use_ODE_var_eqn_pairing = .true.      
+    use_dPrad_dm_form_of_T_gradient_eqn = .true.
+    use_dedt_form_of_energy_eqn = .true.
+
+    use_fixed_vsurf_outer_BC = .true.
+    fixed_vsurf = 0d0
+
+! mixing controls
+
+    mixing_length_alpha = 1.9
+    MLT_option = 'Henyey'
+    thermohaline_coeff = 0
+    min_T_for_acceleration_limited_conv_velocity = 0
+    okay_to_reduce_gradT_excess = .false.
+    min_dt_for_increases_in_convection_velocity = 1
+    mlt_accel_g_theta = 1d-2
+    
+! mesh controls
+
+    okay_to_remesh = .false.
+
+! timestep controls
+
+    delta_lgL_He_limit = 0.5
+    delta_lgT_cntr_limit = 0.2
+    delta_lgRho_cntr_limit = 0.5
+
+    dX_nuc_drop_limit_at_high_T = 1d-2
+    
+    varcontrol_target = 1d-3
+    max_timestep = 5d-2
+
+! solver controls
+
+    use_gold_tolerances = .true.
+
+    newton_iterations_limit = 8 ! timesteps
+    max_tries = 9
+    iter_for_resid_tol2 = 8
+    tol_residual_norm1 = 1d-10
+    tol_max_residual1 = 1d-7
+
+    tiny_corr_coeff_limit = 999999
+    newton_itermin_until_reduce_min_corr_coeff = 999999
+    
+    convergence_ignore_equL_residuals = .true.
+
+! output controls
+
+    he_core_boundary_h1_fraction = 0.5
+    c_core_boundary_he4_fraction = 0.5
+    o_core_boundary_c12_fraction = 0.5
+    si_core_boundary_o16_fraction = 0.5
+    fe_core_boundary_si28_fraction = 0.5
+    
+    max_num_profile_models = 1000
+    terminal_show_age_in_years = .false.
+
+    photo_interval = 10
+    profile_interval = 10
+    history_interval = 1
+    terminal_interval = 1
+    write_header_frequency = 10
+
+/ ! end of controls namelist

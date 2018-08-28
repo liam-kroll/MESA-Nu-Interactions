@@ -1,0 +1,36 @@
+&pgstar
+
+  ! MESA uses PGPLOT for live plotting and gives the user a tremendous
+  ! amount of control of the presentation of the information.
+
+  ! show temperature/density profile
+    TRho_Profile_win_flag = .true.
+  ! add legend explaining colors
+    show_TRho_Profile_legend = .true.
+  ! display numerical info about the star
+    show_TRho_Profile_text_info = .true.
+  ! make a movie of the plots
+  !  TRho_file_flag = .true.
+
+  ! show Abundance window
+    Abundance_win_flag = .true.
+  ! make a movie of the plots
+  !  Abundance_file_flag = .true.
+  ! set static plot bounds
+    Abundance_xmin = 1.59d0
+    Abundance_xmax = 1.8d0
+
+  ! show power window
+    Power_win_flag = .true.
+  ! make a movie of the plots
+  !  Power_file_flag = .true.
+  ! set static plot bounds
+    Power_xmin = 1.59d0
+    Power_xmax = 1.8d0
+
+  ! show reaction network window
+  !  Network_win_flag = .true.
+  ! make a movie of the plots
+  !  Network_file_flag = .true.
+
+/ ! end of pgstar namelist

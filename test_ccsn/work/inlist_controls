@@ -1,0 +1,125 @@
+
+&controls
+
+      use_Type2_opacities = .true.
+      initial_z = 0.006d0     ! << REVISE THESE FOR SPECIFIC MODELS
+      Zbase = 0.006d0
+
+      read_extra_controls_inlist1 = .true.
+      extra_controls_inlist1_name = '../example_ccsn_IIp/inlist_set_alpha_mlt'
+                  
+      logQ_limit = 1d99 
+      logQ_min_limit = -1d99
+      fe_core_infall_limit = 1d99
+
+      x_ctrl(1) = -1 ! expect shock location > this
+      x_ctrl(2) = -1 ! stop when shock reaches this location
+         
+      x_ctrl(16) = 0.11 ! stop_m <= star_mass minus this (Msun)
+      
+      ! for "magnetar"
+      x_ctrl(3) = -1 ! 2d44 ! L_center (in ergs/s)
+      x_ctrl(4) = -1 ! 0.25d0 ! start linear ramp up of L_center at this time (days)
+      x_ctrl(5) = -1 ! 1.0d0 ! finish linear ramp up of L_center at this time (days)      
+      x_ctrl(6) = -1 ! 40d0 ! start linear ramp down of L_center at this time (days)
+      x_ctrl(7) = -1 ! 60d0 ! finish linear ramp down of L_center at this time (days)      
+
+      no_MLT_below_shock = .true.
+      
+! RTI
+      RTI_A = 1d-3
+      RTI_B = 2.5d0
+      RTI_C = 0.2d0
+      RTI_D = 3d0
+      
+      RTI_max_alpha = 10d0
+      RTI_dm_for_center_eta_nondecreasing = 0.01
+      RTI_min_dm_behind_shock_for_full_on = 0.01
+      RTI_D_mix_floor = 0d0
+
+      RTI_smooth_mass = 1d-2
+      RTI_smooth_iterations = 1
+      RTI_smooth_fraction = -1
+      
+      RTI_C_X0_frac = 0.90d0 ! X0 = X0_frac*surface_h1
+      RTI_C_X_factor = 0 ! 1500 ! C = RTI_C*(1 + max(0,X-X0)*X_factor)
+
+      RTI_log_max_boost = 0d0
+      RTI_m_full_boost = 1.65d0
+      RTI_m_no_boost = 3.5d0
+
+      RTI_energy_floor = 2d14
+
+
+! equation controls
+      use_ODE_var_eqn_pairing = .true.      
+      use_dedt_form_of_energy_eqn = .true.
+      use_dPrad_dm_form_of_T_gradient_eqn = .true.
+      use_flux_limiting_with_dPrad_dm_form = .false.
+
+      ! turn off energy from nuclear reactions and neutrinos
+      eps_nuc_factor = 0d0
+      non_nuc_neu_factor = 0d0
+
+! eos controls
+
+! mixing controls
+      mixing_length_alpha = 1.9
+      MLT_option = 'Henyey'
+      thermohaline_coeff = 0
+      min_T_for_acceleration_limited_conv_velocity = 0
+      okay_to_reduce_gradT_excess = .false.
+      min_dt_for_increases_in_convection_velocity = 1
+      mlt_accel_g_theta = 1d-2
+
+! mesh controls
+      okay_to_remesh = .true
+      use_split_merge_amr = .true.
+      split_merge_amr_log_zoning = .true.
+      split_merge_amr_nz_baseline = 1200
+      split_merge_amr_MaxLong = 1.5d0
+      split_merge_amr_MaxShort = 1.5d0
+      split_merge_amr_max_iters = 1000
+      !trace_split_merge_amr = .true.
+
+! timestep controls
+      delta_lgL_He_limit = 0.5
+      delta_lgT_cntr_limit = -1
+      delta_lgP_cntr_limit = -1
+      delta_lgRho_cntr_limit = -1
+      dX_nuc_drop_limit_at_high_T = 1d-2
+      varcontrol_target = 1d-2
+      dt_div_min_dr_div_cs_limit = 0.7d0
+      
+! solver controls 
+
+      use_gold_tolerances = .true.
+      newton_iterations_limit = 20 ! this is used for setting timesteps
+      max_tries = 20
+      iter_for_resid_tol2 = 9 ! switch to tol2 on this iter
+      tol_residual_norm1 = 5d-7
+      tol_max_residual1 = 5d-6
+!      convergence_ignore_equL_residuals = .true.
+      xa_scale = 1d0
+      tiny_corr_coeff_limit = 999999
+      newton_itermin_until_reduce_min_corr_coeff = 999999
+      max_resid_jump_limit = 1d99 ! turn this off until fix residuals
+
+! output controls
+      max_num_profile_models = 1000
+      terminal_show_age_in_years = .false.
+
+      photo_interval = 50
+      profile_interval = 50
+      history_interval = 1
+      terminal_interval = 10
+      write_header_frequency = 10
+
+      he_core_boundary_h1_fraction = 0.5
+      c_core_boundary_he4_fraction = 0.5
+      o_core_boundary_c12_fraction = 0.5
+      si_core_boundary_o16_fraction = 0.5
+      fe_core_boundary_si28_fraction = 0.5
+
+
+/ ! end of controls namelist
