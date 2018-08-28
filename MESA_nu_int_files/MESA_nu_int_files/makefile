@@ -1,6 +1,6 @@
 # ***********************************************************************
 #
-#  Copyright (C) 2010  Bill Paxton
+#  Copyright (C) 2010  Bill Paxton, edited 2018 Liam Kroll
 #
 #  MESA is free software; you can use it and/or modify
 #  it under the combined terms and restrictions of the MESA MANIFESTO
@@ -36,6 +36,7 @@ include $(MESA_DIR)/utils/makefile_header
 #################################################################
 #
 # SOURCE FILES
+# Changed below, added the net_neu_reac.f90 file
 
 SRCS = \
    net_def.f90 \
